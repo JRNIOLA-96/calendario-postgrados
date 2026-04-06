@@ -1,0 +1,644 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #000000;
+    --bg: #0c0c0e;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f6f9; /* igual al fondo ESPOL */
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+#root {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+/* quitar fondo gris */
+.fc {
+  background-color: white;
+}
+
+/* eliminar bordes fuertes */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: 1px solid #ddd;
+}
+
+/* quitar fondo gris de días */
+.fc-daygrid-day {
+  background-color: #ebebeb;
+}
+
+/* header de días (Dom, Lun...) */
+.fc-col-header {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* quitar borde del toolbar original */
+.fc .fc-toolbar {
+  display: none; /* 👈 usamos nuestro header personalizado */
+}
+
+.fc-event {
+  border: none !important;
+  border-radius: 2px !important;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+}
+
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 🔥 CLAVE */
+}
+
+.detalle-body {
+  padding: 25px;
+  text-align: center;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* 🔥 evita desbordes */
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 20%;
+  min-width: 180px;
+  max-width: 280px;
+  background: #3aa0c8;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+}
+
+/* TEXTO SIDEBAR */
+.dia-numero {
+  font-size: clamp(50px, 8vw, 120px);
+  font-weight: bold;
+}
+
+.dia-texto {
+  font-size: clamp(18px, 2vw, 30px);
+  margin-top: 10px;
+}
+
+/* CONTENIDO DERECHO */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.detalle-header {
+  height: 220px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.detalle-header h1 {
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* CALENDARIO */
+.calendar-container {
+  flex: 1;
+  background: #ffffff; /* blanco */
+  padding: 0; /* ❌ quita padding */
+  margin: 0; 
+  height: calc(100vh - 120px); /* ajusta según tu header */
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 120px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .main {
+    flex: 1;
+  }
+}
+/* Centrar número del día */
+.fc-daygrid-day-top {
+  display: flex;
+  justify-content: center;  /* 👈 centra horizontal */
+  align-items: flex-start;  /* 👈 arriba */
+  padding-top: 4px;
+}
+
+/* Ajuste del número */
+.fc-daygrid-day-number {
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+/* Altura uniforme de filas */
+.fc-daygrid-body {
+  height: 100% !important;
+}
+
+/* Cada celda ocupa el mismo espacio */
+.fc-daygrid-day {
+  height: 150px; /* 👈 AQUÍ CONTROLAS EL TAMAÑO */
+}
+
+/* espacio entre eventos */
+.fc-daygrid-event {
+  margin-top: 2px;
+}
+
+/* FONDO DIFUMINADO */
+/* OVERLAY */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 30, 50, 0.5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* MODAL */
+.modal {
+  background: #ffffff;
+  width: 420px;
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+/* HEADER */
+.modal h2 {
+  background: #2f6fad;
+  color: rgb(255, 255, 255);
+  padding: 15px;
+  font-size: 18px;
+}
+
+/* FORM */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+}
+
+/* INPUTS */
+.modal input,
+.modal select,
+.modal textarea {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus {
+  border-color: #2f6fad;
+}
+
+/* TEXTAREA */
+.modal textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* BOTONES */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-buttons button[type="submit"] {
+  background: #2f6fad;
+  color: white;
+}
+
+.modal-buttons button[type="button"] {
+  background: #ccc;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* INPUTS */
+.modal input,
+.modal select,
+.modal textarea {
+  width: 100%;
+  padding: 8px;
+}
+
+/* BOTONES */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-detalle {
+  width: 520px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+/* BOTÓN FLOTANTE */
+.fab {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #2f6fad;
+  color: white;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1001;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  background: #1e4f80;
+}
+
+
+
+/* ventana 2 informacion de reserva */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.badge.sustentacion {
+  background: #e53935;
+}
+
+.badge.reunion {
+  background: #8e24aa;
+}
+
+.badge.evento {
+  background: #43a047;
+}
+
+.badge.comite {
+  background: #fdd835;
+  color: black;
+}
+
+.badge.curso {
+  background: #0e8df5;
+  color: black;
+}
+
+.badge.otro {
+  background: #ff9800;
+  color: white;
+}
+
+.detalle-texto {
+  margin-top: 10px;
+  color: #555;
+}
+
+.detalle-texto {
+  margin-top: 10px;
+  color: #555;
+}
+
+.detalle-tags {
+  margin-bottom: 15px;
+}
+
+
+.badge {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+/* TIPOS */
+.badge.sustentacion {
+  background: #e53935;
+}
+
+.badge.reunion {
+  background: #8e24aa;
+}
+
+.badge.evento {
+  background: #43a047;
+}
+
+.badge.comite {
+  background: #fbc02d;
+  color: black;
+}
+
+.detalle-subtitulo {
+  margin: 10px 0;
+  color: #2c3e50;
+}
+
+.detalle-texto {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.detalle-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 13px;
+  color: #1976d2;
+}
+
+
+/* SUPERIOR DEL CALENDARIO */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #2f6fa3, #3c8dbc);
+  color: white;
+  padding: 10px 20px;
+}
+
+/* IZQUIERDA */
+.header-left h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* DERECHA */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mes-texto {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* BOTONES */
+.nav-btn {
+  background: rgb(65, 48, 160);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* LEGENDA */
+.leyenda {
+  position: fixed;
+  bottom: 0;
+  left: 0;   /* 🔥 CAMBIO CLAVE */
+  right: 0;
+  height: auto;
+  min-height: 40px;
+
+  background: #2f3b63;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; /* 🔥 permite bajar a otra fila */
+
+  gap: 10px;
+  padding: 10px 20px;
+
+  z-index: 10;
+}
+
+/* ITEM */
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 1px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* COLOR */
+.leyenda-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+/* TEXTO */
+.leyenda-texto {
+  color: #333;
+}
+
+.leyenda-item.inactivo {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.leyenda-item.activo {
+  opacity: 1;
+}
