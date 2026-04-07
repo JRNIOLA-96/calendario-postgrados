@@ -9,11 +9,10 @@ app.use(express.json());
 
 // conexión a PostgreSQL
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "sistema_reservas",
-  password: "12345678",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // endpoint recursos
