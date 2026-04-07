@@ -15,6 +15,36 @@ const pool = new Pool({
   },
 });
 
+app.get("/init-db", async (req, res) => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS recursos (
+        id SERIAL PRIMARY KEY,
+        nombre VARCHAR(100),
+        tipo VARCHAR(50)
+      );
+    `);
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS reservas (
+        id SERIAL PRIMARY KEY,
+        aula_id INTEGER,
+        equipo_id INTEGER,
+        evento VARCHAR(200),
+        inicio TIMESTAMP,
+        fin TIMESTAMP,
+        tipo VARCHAR(50),
+        detalles TEXT
+      );
+    `);
+
+    res.send("DB creada");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
 // endpoint recursos
 app.get("/recursos", async (req, res) => {
   try {
