@@ -45,6 +45,25 @@ app.get("/init-db", async (req, res) => {
   }
 });
 
+app.get("/seed", async (req, res) => {
+  try {
+    await pool.query(`
+      INSERT INTO recursos (nombre, tipo) VALUES
+      ('Aula 101', 'aula'),
+      ('Aula 102', 'aula'),
+      ('Sala de reuniones', 'aula'),
+      ('Proyector', 'equipo'),
+      ('Laptop', 'equipo'),
+      ('Kit multimedia', 'equipo');
+    `);
+
+    res.send("Datos insertados correctamente");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al insertar datos");
+  }
+});
+
 // endpoint recursos
 app.get("/recursos", async (req, res) => {
   try {
