@@ -24,6 +24,12 @@ function App() {
   const [personal, setPersonal] = useState("");
   const [modalidad, setModalidad] = useState("");
 
+  const API_URL =
+  window.location.hostname.includes("vercel.app")
+    ? "https://calendario-postgrados.onrender.com"
+    : "http://localhost:3000";
+ 
+
   //FILTROS
   const [filtrosActivos, setFiltrosActivos] = useState({
     sustentacion: true,
@@ -119,14 +125,14 @@ function App() {
   useEffect(() => {
 
     const cargarEventos = () => {
-      fetch("/reservas")
+      fetch(`${API_URL}/reservas`)
         .then((res) => res.json())
         .then((data) => {setEventos(formatearEventos(data));})
         .catch((err) => console.error(err));
     };
 
     const cargarRecursos = () => {
-      fetch("/recursos")
+      fetch(`${API_URL}/recursos`)
         .then((res) => res.json())
         .then((data) => {
           //console.log("RECURSOS:", data);
@@ -159,7 +165,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/reservas", {
+    const res = await fetch(`${API_URL}/reservas`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +189,7 @@ function App() {
       toast.success("Reserva creada");
 
       // 🔥 REFETCH (CORRECTO)
-      fetch("/reservas")
+      fetch(`${API_URL}/reservas`)
         .then((res) => res.json())
         .then((data) => {
           setEventos(formatearEventos(data)); // 👈 aquí también
